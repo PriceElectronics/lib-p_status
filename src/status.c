@@ -73,7 +73,7 @@ void status_routine(unsigned long call_interval)
                 if(status_timer >= CODE_BLINK_PAUSE)
                 {
                     status_timer = 0;
-                    status_queue_position++; // must be incremented for the while loop in DETERMINE_NEXT_STATUS to function
+                    status_queue_position++; // go to next index. DETERMINE_NEXT_STATUS will determine if we need to keep going or not.
                     status_state = DETERMINE_NEXT_STATUS;
                 }
                 break;
@@ -96,7 +96,7 @@ void status_routine(unsigned long call_interval)
  */
 char status_add_code(unsigned char num_flashes)
 {
-    if(num_flashes > MAX_STATUSES) return 0;
+    if(num_flashes > MAX_STATUSES || num_flashes == 0) return 0;
     
     status[num_flashes-1] = 1;
     return 1;
@@ -109,7 +109,7 @@ char status_add_code(unsigned char num_flashes)
  */
 char status_remove_code(unsigned char num_flashes)
 {
-    if(num_flashes > MAX_STATUSES) return 0;
+    if(num_flashes > MAX_STATUSES || num_flashes == 0) return 0;
 
     status[num_flashes-1] = 0;
     return 1;
