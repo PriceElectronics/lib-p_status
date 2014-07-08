@@ -18,8 +18,8 @@ typedef enum
 {
     STA_RESERVED,
     STA_PRODUCTION_TEST,
-    STA_EE_FAIL,
     STA_EXT_FLASH_FAIL,
+    STA_EE_FAIL,
 
     NUM_STA_CODES
 }StatusCodes;
@@ -32,16 +32,16 @@ void status_routine(unsigned long call_interval);
 
 /**
  * Adds a blink code to the queue. Blink codes will cycle through from lowest to highest.
- * @param num_flashes The blink code to add.
+ * @param status_code The blink code to add.
  * @return 1 if code successfully added, 0 if request out of range.
  */
-char status_add_code(unsigned char num_flashes);
+char status_add_code(StatusCodes status_code);
 
 /**
  * Removes a blink code from the queue.
- * @param num_flashes The blink code to remove.
+ * @param status_code The blink code to remove.
  * @return 1 if code successfully removed, 0 if request out of range.
  */
-char status_remove_code(unsigned char num_flashes);
+char status_remove_code(StatusCodes status_code);
 
 #endif	/* STATUS_H */

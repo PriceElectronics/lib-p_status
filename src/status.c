@@ -91,27 +91,27 @@ void status_routine(unsigned long call_interval)
 
 /**
  * Adds a blink code to the queue. Blink codes will cycle through from lowest to highest.
- * @param num_flashes The blink code to add.
+ * @param status_code The blink code to add.
  * @return 1 if code successfully added, 0 if request out of range.
  */
-char status_add_code(unsigned char num_flashes)
+char status_add_code(StatusCodes status_code)
 {
-    if(num_flashes > NUM_STA_CODES) return 0;
+    if(status_code > NUM_STA_CODES) return 0;
     
-    status[num_flashes] = 1;
+    status[status_code] = 1;
     return 1;
 }
 
 /**
  * Removes a blink code from the queue.
- * @param num_flashes The blink code to remove.
+ * @param status_code The blink code to remove.
  * @return 1 if code successfully removed, 0 if request out of range.
  */
-char status_remove_code(unsigned char num_flashes)
+char status_remove_code(StatusCodes status_code)
 {
-    if(num_flashes > NUM_STA_CODES) return 0;
+    if(status_code > NUM_STA_CODES) return 0;
 
-    status[num_flashes] = 0;
+    status[status_code] = 0;
     return 1;
 }
 
