@@ -7,11 +7,22 @@
 #define	STATUS_H
 
 #define STATUS_LED_LAT LATGbits.LATG6   // The status LED output latch
-#define MAX_STATUSES 5                  // The number of blink codes supported. This is also the highest code supported.
 
 #define CODE_BLINK_TIME 150             // The blink length for codes (ms)
 #define CODE_BLINK_PAUSE 1000           // amount of time between codes (ms)
 #define HEARTBEAT_BLINK_TIME 1000       // length of heartbeat blinks (ms)
+
+// Status codes.
+// Enum value + 1 = number of blinks
+typedef enum
+{
+    STA_RESERVED,
+    STA_PRODUCTION_TEST,
+    STA_EE_FAIL,
+    STA_EXT_FLASH_FAIL,
+
+    NUM_STA_CODES
+}StatusCodes;
 
 /**
  * The main task for the status LED library. The scheduler should call this on a regular interval.

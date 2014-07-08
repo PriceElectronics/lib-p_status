@@ -16,7 +16,7 @@ typedef enum
 
 static char status_override(void);
 
-char status[MAX_STATUSES];
+char status[NUM_STA_CODES];
 
 /**
  * The main task for the status LED library. The scheduler should call this on a regular interval.
@@ -38,7 +38,7 @@ void status_routine(unsigned long call_interval)
             case DETERMINE_NEXT_STATUS: // moves through the array until an override is found. This will never get stuck because status_override() returned non-zero for us to arrive here.
                 while(status[status_queue_position] != 1)
                 {
-                    if(++status_queue_position >= MAX_STATUSES)
+                    if(++status_queue_position >= NUM_STA_CODES)
                         status_queue_position = 0;
                 }
                 status_state = LED_ON;
@@ -96,9 +96,9 @@ void status_routine(unsigned long call_interval)
  */
 char status_add_code(unsigned char num_flashes)
 {
-    if(num_flashes > MAX_STATUSES || num_flashes == 0) return 0;
+    if(num_flashes > NUM_STA_CODES) return 0;
     
-    status[num_flashes-1] = 1;
+    status[num_flashes] = 1;
     return 1;
 }
 
@@ -109,9 +109,9 @@ char status_add_code(unsigned char num_flashes)
  */
 char status_remove_code(unsigned char num_flashes)
 {
-    if(num_flashes > MAX_STATUSES || num_flashes == 0) return 0;
+    if(num_flashes > NUM_STA_CODES) return 0;
 
-    status[num_flashes-1] = 0;
+    status[num_flashes] = 0;
     return 1;
 }
 
@@ -124,7 +124,7 @@ static char status_override(void)
     char status_present = 0;
     int i;
     
-    for(i=0;i<MAX_STATUSES;i++)
+    for(i=0;i<NUM_STA_CODES;i++)
     {
         if(status[i] != 0)
         {
